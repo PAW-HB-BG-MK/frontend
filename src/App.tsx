@@ -10,16 +10,6 @@ import {
 
 const backendAddr = 'http://127.0.0.1:3000/api/v1/ping'
 
-function onClick() {
-    axios.get(backendAddr).then(res => {
-        console.log(res)
-        let resultDiv = document.getElementById("result")
-        if (resultDiv) {
-            resultDiv.innerText += res.data['message']
-        }
-    })
-}
-
 function App() {
     return (
         <Router>
@@ -35,11 +25,19 @@ function App() {
 }
 
 function Home() {
+    const clickHandler = () => {
+        axios.get(backendAddr).then(res => {
+            let resultDiv = document.getElementById("result")
+            if (resultDiv) {
+                resultDiv.innerText += res.data['message']
+            }
+        })
+    }
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
-                <button onClick={onClick}>Ping</button>
+                <button onClick={clickHandler}>Ping</button>
                 <div id="result"/>
             </header>
         </div>
