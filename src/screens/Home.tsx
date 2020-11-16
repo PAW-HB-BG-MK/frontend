@@ -1,7 +1,7 @@
 import axios from "axios"
 import logo from "../logo.svg"
 import React from "react"
-import {backendAddr} from "../App"
+import {backendAddr} from "../constants/apiConstants"
 import {useState} from 'react'
 
 export default function Home() {
