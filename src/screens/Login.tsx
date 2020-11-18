@@ -24,7 +24,7 @@ export default function Home() {
 
         axios.post(backendAddr + "auth/sign_in", {
             "auth": {
-                "login": login,
+                "email": login,
                 "password": password
             }
         }, config).then((res) => {
