@@ -7,12 +7,16 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
+import Login from './screens/Login'
 
 function App() {
     return (
         <Router>
             <div>
                 <Switch>
+                    <Route path="/login">
+                        <Login/>
+                    </Route>
                     <Route path="/">
                         <Home/>
                     </Route>
