@@ -4,7 +4,7 @@ import axios from "axios"
 import {backendAddr} from "../constants/apiConstants"
 import {useHistory} from "react-router-dom"
 
-export default function Home() {
+export default function Login() {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     let history = useHistory()
