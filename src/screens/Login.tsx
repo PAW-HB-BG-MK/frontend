@@ -34,7 +34,7 @@ export default function Login() {
                 return
             }
             localStorage.setItem("jwt", res.data['jwt'])
-            history.push("/tables")
+            history.push("/dashboard/tables")
         }).catch((err) => {
             // TODO: proper exception handling
             console.log(err)
