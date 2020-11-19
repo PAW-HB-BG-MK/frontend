@@ -7,14 +7,14 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
-import DashboardTables from "./screens/dashboard/DashboardTables";
+import DashboardT from "./screens/dashboard/DashboardT";
 function App() {
     return (
         <Router>
             <div>
                 <Switch>
                     <Route exact path="/" component={Home}/>
-                    <Route exact path="/dashboard/tables" component={DashboardTables}/>
+                    <Route exact path="/dashboard/tables" component={DashboardT}/>
                 </Switch>
             </div>
         </Router>
