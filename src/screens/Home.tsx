@@ -7,7 +7,7 @@ import {useState} from 'react'
 export default function Home() {
     const [result, setResult] = useState("")
     const clickHandler = () => {
-        axios.get(backendAddr).then(res => {
+        axios.get(backendAddr+ "/api/v1/ping").then(res => {
             setResult(res.data['message'])
         })
     }
