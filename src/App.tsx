@@ -7,6 +7,7 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
+import DashboardT from "./screens/dashboard/DashboardT";
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 
@@ -15,6 +16,7 @@ function App() {
         <Router>
             <div>
                 <Switch>
+                    <Route exact path="/dashboard/tables" component={DashboardT}/>
                     <Route path="/login">
                         <Login/>
                     </Route>
