@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature/github-actions ]
 
 jobs:
   FTP-Deploy-Action:
@@ -33,7 +33,8 @@ jobs:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        LOCAL_DIR: build
+        LOCAL_DIR: build/
+        SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
         METHOD: sftp
         PORT: 22
         ARGS: --delete
