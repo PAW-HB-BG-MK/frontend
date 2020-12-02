@@ -16,20 +16,20 @@ function App() {
     return (
         <Router>
             <NavBar/>
-            <div>
-                <Switch>
-                    <Route exact path="/dashboard/tables" component={DashboardT}/>
-                    <Route path="/login">
-                        <Login/>
-                    </Route>
-                    <Route path="/logout">
-                        <Logout/>
-                    </Route>
-                    <Route path="/">
-                        <Home/>
-                    </Route>
-                </Switch>
-            </div>
+
+            <Switch>
+                <Route exact path="/dashboard/tables" component={DashboardT}/>
+                <Route path="/login">
+                    <Login/>
+                </Route>
+                <Route path="/logout">
+                    <Logout/>
+                </Route>
+                <Route path="/">
+                    <Home/>
+                </Route>
+            </Switch>
+
         </Router>
     )
 }
