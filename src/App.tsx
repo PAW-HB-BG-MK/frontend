@@ -11,6 +11,7 @@ import DashboardT from "./screens/dashboard/DashboardT"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
+import Register from "./screens/Register";
 
 function App() {
     return (
@@ -21,6 +22,9 @@ function App() {
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
                 <Route path="/login">
                     <Login/>
+                </Route>
+                <Route path="/register">
+                    <Register/>
                 </Route>
                 <Route path="/logout">
                     <Logout/>
