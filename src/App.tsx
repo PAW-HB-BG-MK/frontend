@@ -7,13 +7,15 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
-import DashboardT from "./screens/dashboard/DashboardT";
+import DashboardT from "./screens/dashboard/DashboardT"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
+import NavBar from "./components/NavBar"
 
 function App() {
     return (
         <Router>
+            <NavBar/>
             <div>
                 <Switch>
                     <Route exact path="/dashboard/tables" component={DashboardT}/>
