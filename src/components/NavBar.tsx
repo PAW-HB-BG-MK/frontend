@@ -24,17 +24,6 @@ export default function NavBar() {
     const classes = useStyles()
     let history = useHistory()
 
-    let logButton;
-
-    if (localStorage.getItem("jwt")) {
-        logButton = <Button color="inherit" onClick={() => {
-            history.push("/login")
-        }}>Login</Button>
-    } else {
-        logButton = <Button color="inherit" onClick={() => {
-            localStorage.clear()
-        }}>Logout</Button>
-    }
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -46,7 +35,13 @@ export default function NavBar() {
                         Trello clone
                     </Typography>
 
-                    {logButton}
+                    {(localStorage.getItem("jwt")) ? <Button color="inherit" onClick={() => {
+                            history.push("/login")
+                        }}>Login</Button>
+                        :
+                        <Button color="inherit" onClick={() => {
+                            localStorage.clear()
+                        }}>Logout</Button>}
                 </Toolbar>
             </AppBar>
         </div>
