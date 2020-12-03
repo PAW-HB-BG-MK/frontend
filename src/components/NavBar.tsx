@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,9 +20,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }))
 
+function useForceUpdate() {
+    const [, setValue] = useState(0)
+    return () => setValue(value => ++value)
+}
+
 export default function NavBar() {
     const classes = useStyles()
     let history = useHistory()
+    const forceUpdate = useForceUpdate()
 
     return (
         <div className={classes.root}>
@@ -35,13 +41,15 @@ export default function NavBar() {
                         Trello clone
                     </Typography>
 
-                    {(localStorage.getItem("jwt")) ? <Button color="inherit" onClick={() => {
+                    {(localStorage.getItem("jwt") === null) ? <Button color="inherit" onClick={() => {
                             history.push("/login")
-                        }}>Login</Button>
+                        }}>Zaloguj</Button>
                         :
                         <Button color="inherit" onClick={() => {
                             localStorage.clear()
-                        }}>Logout</Button>}
+                            history.push("/")
+                            forceUpdate()
+                        }}>Wyloguj</Button>}
                 </Toolbar>
             </AppBar>
         </div>
