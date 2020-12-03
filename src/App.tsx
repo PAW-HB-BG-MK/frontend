@@ -12,6 +12,8 @@ import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
 import AddTable from "./screens/dashboard/AddTable";
+import Register from "./screens/Register";
+
 function App() {
     return (
         <Router>
@@ -23,6 +25,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                     <Login/>
+                </Route>
+                <Route path="/register">
+                    <Register/>
                 </Route>
                 <Route path="/logout">
                     <Logout/>
