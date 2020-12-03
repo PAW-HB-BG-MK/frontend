@@ -18,7 +18,7 @@ function App() {
             <NavBar/>
             <Switch>
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
-                <Route path="/dashboard/AddTable">
+                <Route path="/dashboard/addtable">
                     <AddTable/>
                 </Route>
                 <Route path="/login">
