@@ -11,6 +11,7 @@ import DashboardT from "./screens/dashboard/DashboardT"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
+import ChangeTableName from "./screens/dashboard/ChangeTableName";
 import Register from "./screens/Register";
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
 
             <Switch>
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
+                <Route path="/changetablename">
+                    <ChangeTableName/>
+                </Route>
                 <Route path="/login">
                     <Login/>
                 </Route>
