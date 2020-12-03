@@ -11,7 +11,7 @@ import DashboardT from "./screens/dashboard/DashboardT"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
-
+import TableCheckOut from "./screens/dashboard/TableCheckOut";
 function App() {
     return (
         <Router>
@@ -19,6 +19,9 @@ function App() {
 
             <Switch>
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
+                <Route path="/dashboard/TableCheckOut">
+                    <TableCheckOut/>
+                </Route>
                 <Route path="/login">
                     <Login/>
                 </Route>
