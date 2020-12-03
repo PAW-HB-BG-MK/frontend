@@ -14,6 +14,9 @@ const useStyles = makeStyles({
         background: '#eaeff1',
         marginBottom: '15px'
     },
+    inputs:{
+        width: "100%",
+    }
 });
 
 
@@ -24,7 +27,7 @@ export default function ChangeTableName() {
         <Paper className={classes.paper}>
             <Typography align='center' variant='h5'>Zmieniasz Nazwę Tablicy</Typography>
             <labels>
-                <input type="text-center" style={{width: "100%"}} name="name" />
+                <input className={classes.inputs} type="text-center"  name="name" />
             </labels>
             <p align='right'>
                 <input type="submit" value="Wprowadź" />

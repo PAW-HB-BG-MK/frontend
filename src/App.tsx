@@ -19,7 +19,7 @@ function App() {
 
             <Switch>
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
-                <Route path="/ChangeTableName">
+                <Route path="/changetablename">
                     <ChangeTableName/>
                 </Route>
                 <Route path="/login">
