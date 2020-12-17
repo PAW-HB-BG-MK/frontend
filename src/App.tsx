@@ -24,8 +24,10 @@ function App() {
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
                 <Route path="/dashboard/TableCheckOut">
                     <TableCheckOut/>
+                </Route>
                 <Route path="/dashboard/addtable">
                     <AddTable/>
+                </Route>
                 <Route path="/changetablename">
                     <ChangeTableName/>
                 </Route>
