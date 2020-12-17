@@ -15,6 +15,7 @@ import TableCheckOut from "./screens/dashboard/TableCheckOut";
 import AddTable from "./screens/dashboard/AddTable";
 import ChangeTableName from "./screens/dashboard/ChangeTableName";
 import Register from "./screens/Register";
+import CardForm from "./screens/dashboard/CardForm";
 
 function App() {
     return (
@@ -24,8 +25,13 @@ function App() {
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
                 <Route path="/dashboard/TableCheckOut">
                     <TableCheckOut/>
+                </Route>
+                <Route path="/dashboard/addcard">
+                    <CardForm/>
+                </Route>
                 <Route path="/dashboard/addtable">
                     <AddTable/>
+                </Route>
                 <Route path="/changetablename">
                     <ChangeTableName/>
                 </Route>
@@ -42,7 +48,6 @@ function App() {
                     <Home/>
                 </Route>
             </Switch>
-
         </Router>
     )
 }
