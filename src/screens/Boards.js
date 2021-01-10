@@ -70,15 +70,6 @@ function addTable(tableName, setLoading, history) {
     })
 }
 
-function editTable(tableId, tableName, setLoading, history) {
-    axios.post(backendAddr + "api/board/edit", {"id": tableId, "name": tableName}, getAxiosConfig()).then((res) => {
-        setLoading(true);
-    }).catch((err) => {
-        // TODO: proper exception handling
-        console.log(err)
-        history.push("/login")
-    })
-}
 
 export default function Boards() {
     const classes = useStyles();
@@ -87,16 +78,10 @@ export default function Boards() {
     const [isLoading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
     const [addingTable, setAddingTable] = useState(false);
-    const [editingTable, setEditingTable] = useState(false);
     const [newName, setNewName] = useState("");
 
     const addTableClick = () => {
-        setEditingTable(false);
         setAddingTable(true);
-    }
-    const editTableClick = () => {
-        setEditingTable(true);
-        setAddingTable(false);
     }
     useEffect(() => {
         if (isLoading) {
@@ -117,7 +102,7 @@ export default function Boards() {
     let addTableComp = null
     if (addingTable) {
         addTableComp =
-            <div><Input id="newName" onChange={newNameHandler} fullWidth={true} placeholder="Nazwa tablicy"></Input>
+            <div><Input id="newName" onChange={newNameHandler} fullWidth={true} placeholder="Nazwa tablicy"/>
                 <Button onClick={newNameButtonHandler} fullWidth={true} variant="contained" className={classes.submit}
                         color="primary">Utwórz</Button></div>
     }
