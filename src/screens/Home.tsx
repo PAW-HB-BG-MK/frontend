@@ -11,6 +11,9 @@ export default function Home() {
             setResult(res.data['message'])
         })
     }
+    if (localStorage.getItem("jwt")) {
+        console.log('hi');
+    }
     return (
         <div className="App">
             <header className="App-header">

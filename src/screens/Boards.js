@@ -9,7 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import axios from "axios";
-import {backendAddr} from "../../constants/apiConstants";
+import {backendAddr} from "../constants/apiConstants";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles({
     table: {
@@ -26,18 +27,21 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(id, tablename) {
-    return {id, tablename};
-}
-
-function loadTables(setRows, setLoading) {
-    const config = {
+function getAxiosConfig() {
+    return {
         headers: {
             'content-type': "application/json",
             'Authorization': "Bearer " + localStorage.getItem("jwt"),
         }
     }
-    axios.get(backendAddr + "api/boards", config).then((res) => {
+}
+
+function createData(id, tablename) {
+    return {id, tablename};
+}
+
+function loadTables(setRows, setLoading, history) {
+    axios.get(backendAddr + "api/boards", getAxiosConfig()).then((res) => {
         let stuff = []
         console.log(res.data.data);
         res.data.data.forEach((elem) => {
@@ -48,18 +52,30 @@ function loadTables(setRows, setLoading) {
     }).catch((err) => {
         // TODO: proper exception handling
         console.log(err)
+        history.push("/login")
     })
 }
 
-export default function BoardsView() {
+function addTable(tableName, setLoading, history) {
+    axios.post(backendAddr + "api/boards", {"name": tableName}, getAxiosConfig()).then((res) => {
+        setLoading(true);
+    }).catch((err) => {
+        // TODO: proper exception handling
+        console.log(err)
+        history.push("/login")
+    })
+}
+
+export default function Boards() {
     const classes = useStyles();
+    let history = useHistory();
 
     const [isLoading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
         if (isLoading) {
-            loadTables(setRows, setLoading);
+            loadTables(setRows, setLoading, history);
         }
     })
 
