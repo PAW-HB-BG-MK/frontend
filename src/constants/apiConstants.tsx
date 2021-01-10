@@ -1,1 +1,1 @@
-export const backendAddr: string = 'http://pawapi.rehost.pl/'
+export const backendAddr: string = 'https://pawapi.rehost.pl/'

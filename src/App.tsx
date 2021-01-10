@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
-import DashboardT from "./screens/dashboard/DashboardT"
+import DashboardT from "./screens/dashboard/BoardsView"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
