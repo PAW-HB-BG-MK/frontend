@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import axios from "axios";
-import {backendAddr} from "../constants/apiConstants";
+import {backendAddr} from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
 import {Button, Input} from "@material-ui/core";
 
@@ -83,6 +83,7 @@ export default function Boards() {
     const addTableClick = () => {
         setAddingTable(true);
     }
+
     useEffect(() => {
         if (isLoading) {
             loadTables(setRows, setLoading, history);
@@ -122,7 +123,9 @@ export default function Boards() {
                     <TableBody>
                         {(!isLoading) ? rows.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell align="center">{row.tablename}</TableCell>
+                                <TableCell onClick={() => {
+                                    history.push("/dashboard/board/" + row.id)
+                                }} align="center">{row.tablename}</TableCell>
                             </TableRow>
                         )) : <TableRow>
                             <TableCell align="center">ładowanie</TableCell>

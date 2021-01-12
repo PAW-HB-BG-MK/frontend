@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +11,9 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import Button from "@material-ui/core/Button";
 import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import {red} from "@material-ui/core/colors";
+import axios from "axios";
+import {backendAddr} from "../../constants/apiConstants";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,8 +38,52 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function getAxiosConfig() {
+    return {
+        headers: {
+            'content-type': "application/json",
+            'Authorization': "Bearer " + localStorage.getItem("jwt"),
+        }
+    }
+}
+
+function changeArchivisationState(boardId, listId, setLoading, history) {
+    axios.post(backendAddr + "api/list/change_archive_status", {
+        "id": boardId,
+        "list_id": listId
+    }, getAxiosConfig()).then((res) => {
+        setLoading(true)
+    }).catch((err) => {
+        // TODO: proper exception handling
+        console.log(err)
+        history.push("/login")
+    })
+}
+
+function removeList(boardId, listId, setLoading, history) {
+    axios.post(backendAddr + "api/list/remove", {
+        "id": boardId,
+        "list_id": listId
+    }, getAxiosConfig()).then((res) => {
+        setLoading(true)
+    }).catch((err) => {
+        // TODO: proper exception handling
+        console.log(err)
+        history.push("/login")
+    })
+}
+
 export default function List(props) {
+    let history = useHistory();
     const classes = useStyles();
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (loading) {
+            setLoading(false)
+        }
+    })
+
     return (
         <Paper className={classes.paper}>
             <Typography align='center' variant='h4' className={classes.Typography}>{props.name}
@@ -45,15 +92,15 @@ export default function List(props) {
                     (props["archived"]) ?
                         <span>
                         <DeleteForeverIcon style={{color: red[500]}} onClick={() => {
-                            alert("usuwanie");
+                            removeList(props.boardId, props.elementId, setLoading, history);
                         }}/>
                         <ThreeSixtyIcon onClick={() => {
-                            alert("odarchiwizowanie");
+                            changeArchivisationState(props.boardId, props.elementId, setLoading, history);
                         }}/>
                         </span>
                         :
                         <DeleteOutlinedIcon onClick={() => {
-                            alert("archiwizowanie");
+                            changeArchivisationState(props.boardId, props.elementId, setLoading, history);
                         }}/>
                 }
                 </span>
