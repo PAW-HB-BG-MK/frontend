@@ -7,11 +7,11 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
-import DashboardT from "./screens/Boards"
+import DashboardT from "./screens/dashboard/Boards"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
-import TableCheckOut from "./screens/dashboard/TableCheckOut";
+import Board from "./screens/dashboard/Board";
 import Register from "./screens/Register";
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
             <NavBar/>
             <Switch>
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
-                <Route path="/dashboard/TableCheckOut">
-                    <TableCheckOut/>
+                <Route path="/dashboard/board/:boardId">
+                    <Board/>
                 </Route>
                 <Route path="/login">
                     <Login/>

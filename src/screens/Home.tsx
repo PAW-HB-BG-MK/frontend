@@ -3,8 +3,10 @@ import logo from "../logo.svg"
 import React from "react"
 import {backendAddr} from "../constants/apiConstants"
 import {useState} from 'react'
+import {useHistory} from "react-router-dom";
 
 export default function Home() {
+    useHistory().push("/dashboard/tables")
     const [result, setResult] = useState("")
     const clickHandler = () => {
         axios.get(backendAddr + "/api/v1/ping").then(res => {

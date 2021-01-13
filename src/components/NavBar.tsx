@@ -34,9 +34,6 @@ export default function NavBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon/>
-                    </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Trello clone
                     </Typography>
@@ -45,11 +42,17 @@ export default function NavBar() {
                             history.push("/login")
                         }}>Zaloguj</Button>
                         :
-                        <Button color="inherit" onClick={() => {
-                            localStorage.clear()
-                            history.push("/")
-                            forceUpdate()
-                        }}>Wyloguj</Button>}
+                        <div>
+                            <Button color="inherit" onClick={() => {
+                                history.push("/dashboard/tables")
+                                forceUpdate()
+                            }}>Tabele</Button>
+
+                            <Button color="inherit" onClick={() => {
+                                localStorage.clear()
+                                history.push("/")
+                                forceUpdate()
+                            }}>Wyloguj</Button></div>}
                 </Toolbar>
             </AppBar>
         </div>
