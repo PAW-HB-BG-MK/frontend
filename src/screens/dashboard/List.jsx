@@ -47,12 +47,13 @@ function getAxiosConfig() {
     }
 }
 
-function changeArchivisationState(boardId, listId, setLoading, history) {
+function changeArchivisationState(boardId, listId, isArchived, setArchived, setLoading, history) {
     axios.post(backendAddr + "api/list/change_archive_status", {
         "id": boardId,
         "list_id": listId
     }, getAxiosConfig()).then((res) => {
         setLoading(true)
+        setArchived(!isArchived)
     }).catch((err) => {
         // TODO: proper exception handling
         console.log(err)
@@ -66,6 +67,7 @@ function removeList(boardId, listId, setLoading, history) {
         "list_id": listId
     }, getAxiosConfig()).then((res) => {
         setLoading(true)
+        window.location.reload()
     }).catch((err) => {
         // TODO: proper exception handling
         console.log(err)
@@ -77,6 +79,7 @@ export default function List(props) {
     let history = useHistory();
     const classes = useStyles();
     const [loading, setLoading] = useState(true)
+    const [isArchived, setArchived] = useState(props.archived);
 
     useEffect(() => {
         if (loading) {
@@ -89,18 +92,18 @@ export default function List(props) {
             <Typography align='center' variant='h4' className={classes.Typography}>{props.name}
                 <span style={{Right: 0}}>
                 {
-                    (props["archived"]) ?
+                    (isArchived) ?
                         <span>
                         <DeleteForeverIcon style={{color: red[500]}} onClick={() => {
                             removeList(props.boardId, props.elementId, setLoading, history);
                         }}/>
                         <ThreeSixtyIcon onClick={() => {
-                            changeArchivisationState(props.boardId, props.elementId, setLoading, history);
+                            changeArchivisationState(props.boardId, props.elementId, isArchived, setArchived, setLoading, history);
                         }}/>
                         </span>
                         :
                         <DeleteOutlinedIcon onClick={() => {
-                            changeArchivisationState(props.boardId, props.elementId, setLoading, history);
+                            changeArchivisationState(props.boardId, props.elementId, isArchived, setArchived, setLoading, history);
                         }}/>
                 }
                 </span>
