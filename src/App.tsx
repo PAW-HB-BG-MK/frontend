@@ -7,13 +7,11 @@ import {
 } from "react-router-dom"
 
 import Home from './screens/Home'
-import DashboardT from "./screens/dashboard/BoardsView"
+import DashboardT from "./screens/Boards"
 import Login from './screens/Login'
 import Logout from './screens/Logout'
 import NavBar from "./components/NavBar"
 import TableCheckOut from "./screens/dashboard/TableCheckOut";
-import AddTable from "./screens/dashboard/AddTable";
-import ChangeTableName from "./screens/dashboard/ChangeTableName";
 import Register from "./screens/Register";
 
 function App() {
@@ -24,12 +22,6 @@ function App() {
                 <Route exact path="/dashboard/tables" component={DashboardT}/>
                 <Route path="/dashboard/TableCheckOut">
                     <TableCheckOut/>
-                </Route>
-                <Route path="/dashboard/addtable">
-                    <AddTable/>
-                </Route>
-                <Route path="/changetablename">
-                    <ChangeTableName/>
                 </Route>
                 <Route path="/login">
                     <Login/>
