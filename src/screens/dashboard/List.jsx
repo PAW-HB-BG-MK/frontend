@@ -14,6 +14,8 @@ import {red} from "@material-ui/core/colors";
 import axios from "axios";
 import {backendAddr} from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
+import CreateIcon from "@material-ui/icons/Create";
+import {Input} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +63,21 @@ function changeArchivisationState(boardId, listId, isArchived, setArchived, setL
     })
 }
 
+function editList(boardId, listId, listName, setLoading, history) {
+    axios.post(backendAddr + "api/list/edit/name", {
+        "id": boardId,
+        "list_id": listId,
+        "name": listName
+    }, getAxiosConfig()).then((res) => {
+        setLoading(true);
+        window.location.reload()
+    }).catch((err) => {
+        // TODO: proper exception handling
+        console.log(err)
+        history.push("/login")
+    })
+}
+
 function removeList(boardId, listId, setLoading, history) {
     axios.post(backendAddr + "api/list/remove", {
         "id": boardId,
@@ -80,12 +97,39 @@ export default function List(props) {
     const classes = useStyles();
     const [loading, setLoading] = useState(true)
     const [isArchived, setArchived] = useState(props.archived);
+    const [editingList, setEditingList] = useState(false)
+    const [newName, setNewName] = useState("");
 
     useEffect(() => {
         if (loading) {
             setLoading(false)
         }
     })
+
+    const editListClick = () => {
+        setEditingList(true)
+    }
+
+    const editBoardNameHandler = (event) => {
+        setNewName(event.currentTarget.value);
+    }
+
+    const editBoardNameButtonHandler = () => {
+        editList(props.boardId, props.elementId, newName.toString(), setLoading, history);
+        setNewName("");
+        setEditingList(false);
+    }
+
+    let editListComp = null
+
+    if (editingList) {
+        editListComp =
+            <div><Input id="newName" onChange={editBoardNameHandler} fullWidth={true}
+                        placeholder="Nazwa tablicy"/>
+                <Button onClick={editBoardNameButtonHandler} fullWidth={true} variant="contained"
+                        className={classes.submit}
+                        color="primary">Utwórz</Button></div>
+    }
 
     return (
         <Paper className={classes.paper}>
@@ -102,12 +146,19 @@ export default function List(props) {
                         }}/>
                         </span>
                         :
+                        <span>
+                            <Button
+                                color="primary"
+                                onClick={editListClick}
+                            > <CreateIcon/>
+                        </Button>
                         <DeleteOutlinedIcon onClick={() => {
                             changeArchivisationState(props.boardId, props.elementId, isArchived, setArchived, setLoading, history);
-                        }}/>
+                        }}/></span>
                 }
                 </span>
             </Typography>
+            {editListComp}
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableBody>
