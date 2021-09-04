@@ -13,7 +13,7 @@ import {backendAddr} from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import {Input} from "@material-ui/core";
-import AddCardModal from './AddCardModal';
+import AddCardModal from '../../components/modals/AddCardModal';
 import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
