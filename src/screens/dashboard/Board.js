@@ -71,6 +71,7 @@ function getBoardData(boardId, setBoardData, setLoading, history) {
         res.data.lists.forEach(list => {
             list.cards.sort((a, b) => (a.list_id > b.list_id) ? 1 : -1)
         })
+        res.data.lists.sort((a, b) => a.order - b.order)
         setBoardData(res.data);
         setLoading(false)
     }).catch((err) => {
