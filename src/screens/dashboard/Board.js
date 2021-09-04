@@ -208,12 +208,14 @@ export default function Board() {
                 </Grid>
                 <Grid item xs={12} container justify="center" spacing={6}>
                     {(boardData) ? boardData.lists.map((list) => (
-                        <List boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards}/>
+                        <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards}/>
                     )) : <Paper className={classes.paper}>
                    ładowanie...</Paper>}
                 </Grid>
+                <Grid item xs={12}>
+                    {addListComp}
+                </Grid>
             </Grid>
-            {addListComp}
         </div>
     );
 }
