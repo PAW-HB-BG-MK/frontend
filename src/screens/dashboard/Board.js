@@ -10,6 +10,7 @@ import {useParams} from "react-router";
 import {useHistory} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import CreateIcon from '@material-ui/icons/Create';
+import { Modal } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,6 +78,16 @@ function getBoardData(boardId, setBoardData, setLoading, history) {
     })
 }
 
+function addUser(boardId, email, setLoading, history) {
+    axios.post(backendAddr + "api/board/add_user", {"board_id": boardId, "email": email}, getAxiosConfig()).then((res) => {
+        setLoading(true);
+    }).catch((err) => {
+        // TODO: proper exception handling
+        console.log(err)
+        history.push("/login")
+    })
+}
+
 export default function Board() {
     const classes = useStyles();
     let {boardId} = useParams();
@@ -88,6 +99,8 @@ export default function Board() {
     const [boardData, setBoardData] = useState(null)
     const [adddingList, setAddingList] = useState(false)
     const [newList, setNewList] = useState("")
+    const [addingUser, setAddingUser] = useState(false)
+    const [newUser, setNewUser] = useState("")
 
     const editBoardClick = () => {
         setEditingBoard(true)
@@ -126,6 +139,20 @@ export default function Board() {
         setNewList("")
     }
 
+    const addUserHandler = () => {
+        setAddingUser(true)
+    }
+
+    const editUserEmailHandler = (e) => {
+        setNewUser(e.currentTarget.value)
+    }
+
+    const addUserButtonHandler = () => {
+        addUser(boardId, newUser.toString(), setLoading, history);
+        setAddingUser(false);
+        setNewUser("");
+    }
+
     let addListComp = <Button
         variant="contained"
         color="primary"
@@ -147,6 +174,21 @@ export default function Board() {
                         className={classes.submit}
                         color="primary">Utwórz</Button></div>
     }
+    let addUserComp = <Button
+        variant="contained"
+        color="primary"
+        onClick={addUserHandler}
+        >
+            dodaj użytkownika
+        </Button>
+    if (addingUser) {
+        addUserComp =
+        <div><Input id="addUser" onChange={editUserEmailHandler} fullWidth={true}
+                    placeholder="Email"/>
+            <Button onClick={addUserButtonHandler} fullWidth={true} variant="contained"
+                    className={classes.submit}
+                    color="primary">dodaj</Button></div>
+    }
     return (
         <div>
             <Grid container className={classes.root} spacing={4}>
@@ -160,12 +202,15 @@ export default function Board() {
                         </Button>
                     </Typography>
                     {editBoardComp}
-                    <Grid container justify="center" spacing={6}>
-                        {(boardData) ? boardData.lists.map((list) => (
-                            <List boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards}/>
-                        )) : <Paper className={classes.paper}>
-                            ładowanie...</Paper>}
-                    </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    {addUserComp}
+                </Grid>
+                <Grid item xs={12} container justify="center" spacing={6}>
+                    {(boardData) ? boardData.lists.map((list) => (
+                        <List boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards}/>
+                    )) : <Paper className={classes.paper}>
+                   ładowanie...</Paper>}
                 </Grid>
             </Grid>
             {addListComp}

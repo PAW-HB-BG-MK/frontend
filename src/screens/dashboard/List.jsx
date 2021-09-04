@@ -170,7 +170,7 @@ export default function List(props) {
             </TableContainer>
 
             <div align='right' style={{marginTop: "5px"}}>
-                <Button disabled={props.archived}>Dodaj</Button>
+                <Button disabled={isArchived}>Dodaj</Button>
             </div>
 
         </Paper>
