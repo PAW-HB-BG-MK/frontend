@@ -8,6 +8,7 @@ import { useState } from "react";
 import ArchiveCardModal from "../../components/modals/ArchiveCardModal";
 import EditCardModal from "../../components/modals/EditCardModal";
 import DeleteCardModal from "../../components/modals/DeleteCardModal";
+import CardHistoryModal from "../../components/modals/CardHistoryModal";
 
 export default function Card(props) {
     const classes = useStyles();
@@ -16,6 +17,7 @@ export default function Card(props) {
     const [openArchive, setOpenArchive] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+    const [openHistory, setOpenHistory] = useState(false);
 
     const toggleDrop = () => setDropped(!dropped);
 
@@ -59,6 +61,15 @@ export default function Card(props) {
                                         Deadline: {data.deadline ? new Date(data.deadline*1000).toLocaleString('pl-PL', { dateStyle: 'long', timeStyle: 'short' }) : 'brak'}
                                     </Typography>
                                 </Grid>
+                                <Grid item align="center">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => setOpenHistory(true)}
+                                    >
+                                        historia aktywności
+                                    </Button>
+                                </Grid>
                                 <Grid item container justify="space-evenly">
                                     <Grid item>
                                         <Button disabled={data.archived} onClick={() => setOpenEdit(true)}>
@@ -84,6 +95,7 @@ export default function Card(props) {
             <ArchiveCardModal open={openArchive} close={() => setOpenArchive(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} archived={data.archived} setLoading={props.setLoading} />
             <EditCardModal open={openEdit} close={() => setOpenEdit(false)} boardId={props.boardId} cardData={data} setLoading={props.setLoading} />
             <DeleteCardModal open={openDelete} close={() => setOpenDelete(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} setLoading={props.setLoading} />
+            <CardHistoryModal open={openHistory} close={() => setOpenHistory(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} data={data} />
         </Grid>
     )
 }
