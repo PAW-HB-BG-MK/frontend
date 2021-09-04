@@ -14,6 +14,7 @@ import CreateIcon from '@material-ui/icons/Create';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        padding: '2%'
     },
     paper: {
         height: 300,
@@ -211,11 +212,13 @@ export default function Board() {
                 <Grid item xs={12}>
                     {addUserComp}
                 </Grid>
-                <Grid className={classes.container} item xs={12} container justify="center" spacing={6}>
-                    {(boardData) ? boardData.lists.map((list) => (
-                        <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load}/>
-                    )) : <Paper className={classes.paper}>
-                   ładowanie...</Paper>}
+                <Grid className={classes.container} item xs={12}>
+                    <Grid container justify="center" spacing={4}>
+                        {(boardData) ? boardData.lists.map((list) => (
+                            <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load}/>
+                        )) : <Paper className={classes.paper}>
+                        ładowanie...</Paper>}
+                    </Grid>
                 </Grid>
                 <Grid item xs={12}>
                     {addListComp}

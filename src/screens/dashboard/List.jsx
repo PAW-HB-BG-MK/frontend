@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     paper: {
-        width: 100,
         overflow: 'hidden',
         marginTop: "10vh",
         flex: 1,
@@ -137,7 +136,8 @@ export default function List(props) {
     }
 
     return (
-        <Paper className={classes.paper}>
+        <Grid item xs>
+            <Paper className={classes.paper}>
             <Typography align='center' variant='h4' className={classes.Typography}>{props.name}
                 <span style={{Right: 0}}>
                 {
@@ -183,5 +183,6 @@ export default function List(props) {
             </div>
             <AddCardModal open={open} close={() => setOpen(false)} boardId={props.boardId} listId={props.elementId} setLoading={setLoading} />
         </Paper>
+        </Grid>
     )
 }
