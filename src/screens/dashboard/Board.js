@@ -10,7 +10,6 @@ import {useParams} from "react-router";
 import {useHistory} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import CreateIcon from '@material-ui/icons/Create';
-import { Modal } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -120,6 +119,8 @@ export default function Board() {
         setAddingList(true)
     }
 
+    const load = () => setLoading(true);
+
     useEffect(() => {
         if (isLoading) {
             getBoardData(boardId, setBoardData, setLoading, history);
@@ -208,7 +209,7 @@ export default function Board() {
                 </Grid>
                 <Grid item xs={12} container justify="center" spacing={6}>
                     {(boardData) ? boardData.lists.map((list) => (
-                        <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards}/>
+                        <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load}/>
                     )) : <Paper className={classes.paper}>
                    ładowanie...</Paper>}
                 </Grid>

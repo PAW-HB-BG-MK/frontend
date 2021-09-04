@@ -16,6 +16,7 @@ import {backendAddr} from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import {Input} from "@material-ui/core";
+import AddCardModal from './AddCardModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,11 +100,14 @@ export default function List(props) {
     const [isArchived, setArchived] = useState(props.archived);
     const [editingList, setEditingList] = useState(false)
     const [newName, setNewName] = useState("");
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (loading) {
-            setLoading(false)
+            setLoading(false);
+            props.load();
         }
+        console.log(props.cards);
     })
 
     const editListClick = () => {
@@ -159,20 +163,26 @@ export default function List(props) {
                 </span>
             </Typography>
             {editListComp}
+            <div align='right' style={{marginTop: "5px"}}>
+                <Button
+                    variant="contained"
+                    color="primary" 
+                    disabled={isArchived}
+                    onClick={() => setOpen(true)}
+                >
+                    Dodaj
+                </Button>
+            </div>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                         {props.cards.map((card) => (
-                            <Card elementId={card.id} name={card.name} archived={card.archived}/>
+                            <Card key={card.id} elementId={card.id} name={card.name} archived={card.archived}/>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            <div align='right' style={{marginTop: "5px"}}>
-                <Button disabled={isArchived}>Dodaj</Button>
-            </div>
-
+            <AddCardModal open={open} close={() => setOpen(false)} boardId={props.boardId} listId={props.elementId} setLoading={setLoading} />
         </Paper>
     )
 }
