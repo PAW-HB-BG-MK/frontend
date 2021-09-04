@@ -7,6 +7,7 @@ import { ArrowDropUp, ArrowDropDown, Edit, Delete, Archive, Unarchive } from '@m
 import { useState } from "react";
 import ArchiveCardModal from "../../components/modals/ArchiveCardModal";
 import EditCardModal from "../../components/modals/EditCardModal";
+import DeleteCardModal from "../../components/modals/DeleteCardModal";
 
 export default function Card(props) {
     const classes = useStyles();
@@ -14,6 +15,7 @@ export default function Card(props) {
     const [dropped, setDropped] = useState(false);
     const [openArchive, setOpenArchive] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
     const toggleDrop = () => setDropped(!dropped);
 
@@ -64,7 +66,7 @@ export default function Card(props) {
                                         </Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button disabled={data.archived}>
+                                        <Button disabled={data.archived} onClick={() => setOpenDelete(true)}>
                                             <Delete style={data.archived ? null : { color: 'red' }} />
                                         </Button>
                                     </Grid>
@@ -81,6 +83,7 @@ export default function Card(props) {
             </div>
             <ArchiveCardModal open={openArchive} close={() => setOpenArchive(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} archived={data.archived} setLoading={props.setLoading} />
             <EditCardModal open={openEdit} close={() => setOpenEdit(false)} boardId={props.boardId} cardData={data} setLoading={props.setLoading} />
+            <DeleteCardModal open={openDelete} close={() => setOpenDelete(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} setLoading={props.setLoading} />
         </Grid>
     )
 }
