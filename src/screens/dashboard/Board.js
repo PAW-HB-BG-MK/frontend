@@ -10,6 +10,8 @@ import {useParams} from "react-router";
 import {useHistory} from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import CreateIcon from '@material-ui/icons/Create';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -213,12 +215,14 @@ export default function Board() {
                     {addUserComp}
                 </Grid>
                 <Grid className={classes.container} item xs={12}>
-                    <Grid container justify="center" spacing={4}>
-                        {(boardData) ? boardData.lists.map((list) => (
-                            <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load}/>
-                        )) : <Paper className={classes.paper}>
-                        ładowanie...</Paper>}
-                    </Grid>
+                    <DndProvider backend={HTML5Backend}>
+                        <Grid container justify="center" spacing={4}>
+                            {(boardData) ? boardData.lists.map((list) => (
+                                <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load} pos={list.order} />
+                            )) : <Paper className={classes.paper}>
+                            ładowanie...</Paper>}
+                        </Grid>
+                    </DndProvider>
                 </Grid>
                 <Grid item xs={12}>
                     {addListComp}
