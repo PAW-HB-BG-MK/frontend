@@ -5,10 +5,13 @@ import { Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { ArrowDropUp, ArrowDropDown, Edit, Delete, Archive, Unarchive } from '@material-ui/icons';
 import { useState } from "react";
+import ArchiveCardModal from "../../components/modals/ArchiveCardModal";
 
-export default function Card({ data }) {
+export default function Card(props) {
     const classes = useStyles();
+    const { data } = props;
     const [dropped, setDropped] = useState(false);
+    const [openArchive, setOpenArchive] = useState(false);
 
     const toggleDrop = () => setDropped(!dropped);
 
@@ -64,7 +67,7 @@ export default function Card({ data }) {
                                         </Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button>
+                                        <Button onClick={() => setOpenArchive(true)}>
                                             {data.archived ? <Unarchive /> : <Archive />}
                                         </Button>
                                     </Grid>
@@ -74,6 +77,7 @@ export default function Card({ data }) {
                     </Grid>
                 </div>
             </div>
+            <ArchiveCardModal open={openArchive} close={() => setOpenArchive(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} archived={data.archived} setLoading={props.setLoading} />
         </Grid>
     )
 }

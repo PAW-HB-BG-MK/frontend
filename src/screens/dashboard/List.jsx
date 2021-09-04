@@ -177,7 +177,7 @@ export default function List(props) {
             <div className={classes.container}>
                 <Grid container direction="column" spacing={1}>
                     {props.cards.map(card => (
-                        <Card key={card.id} data={card} />
+                        <Card key={card.id} data={card} boardId={props.boardId} listId={props.elementId} setLoading={setLoading} />
                     ))}
                 </Grid>
             </div>
