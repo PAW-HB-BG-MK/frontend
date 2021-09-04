@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '15px',
         marginTop: '5px'
     },
+    container: {
+        height: '100%',
+    }
 }));
 
 function getAxiosConfig() {
@@ -207,7 +210,7 @@ export default function Board() {
                 <Grid item xs={12}>
                     {addUserComp}
                 </Grid>
-                <Grid item xs={12} container justify="center" spacing={6}>
+                <Grid className={classes.container} item xs={12} container justify="center" spacing={6}>
                     {(boardData) ? boardData.lists.map((list) => (
                         <List key={list.id} boardId={boardId} elementId={list.id} name={list.name} archived={list.archived} cards={list.cards} load={load}/>
                     )) : <Paper className={classes.paper}>

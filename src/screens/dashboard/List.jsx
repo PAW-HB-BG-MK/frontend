@@ -2,9 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import Card from "./Card";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
@@ -17,15 +14,14 @@ import {useHistory} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import {Input} from "@material-ui/core";
 import AddCardModal from './AddCardModal';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
     paper: {
-        height: 300,
         width: 100,
-        margin: 'auto',
         overflow: 'hidden',
         marginTop: "10vh",
         flex: 1,
@@ -39,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '15px',
         marginTop: '5px'
     },
+    container: {
+        display: 'flex',
+        flexGrow: 1,
+        padding: '0 10%',
+        marginTop: '5%'
+    }
 }));
 
 function getAxiosConfig() {
@@ -107,7 +109,6 @@ export default function List(props) {
             setLoading(false);
             props.load();
         }
-        console.log(props.cards);
     })
 
     const editListClick = () => {
@@ -173,15 +174,13 @@ export default function List(props) {
                     Dodaj
                 </Button>
             </div>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableBody>
-                        {props.cards.map((card) => (
-                            <Card key={card.id} elementId={card.id} name={card.name} archived={card.archived}/>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <div className={classes.container}>
+                <Grid container direction="column" spacing={1}>
+                    {props.cards.map(card => (
+                        <Card key={card.id} data={card} />
+                    ))}
+                </Grid>
+            </div>
             <AddCardModal open={open} close={() => setOpen(false)} boardId={props.boardId} listId={props.elementId} setLoading={setLoading} />
         </Paper>
     )
