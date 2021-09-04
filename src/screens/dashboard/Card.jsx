@@ -6,12 +6,14 @@ import { Button } from "@material-ui/core";
 import { ArrowDropUp, ArrowDropDown, Edit, Delete, Archive, Unarchive } from '@material-ui/icons';
 import { useState } from "react";
 import ArchiveCardModal from "../../components/modals/ArchiveCardModal";
+import EditCardModal from "../../components/modals/EditCardModal";
 
 export default function Card(props) {
     const classes = useStyles();
     const { data } = props;
     const [dropped, setDropped] = useState(false);
     const [openArchive, setOpenArchive] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
 
     const toggleDrop = () => setDropped(!dropped);
 
@@ -52,12 +54,12 @@ export default function Card(props) {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Deadline: {data.deadline ? '...' : 'brak'}
+                                        Deadline: {data.deadline ? new Date(data.deadline*1000).toLocaleString('pl-PL', { dateStyle: 'long', timeStyle: 'short' }) : 'brak'}
                                     </Typography>
                                 </Grid>
                                 <Grid item container justify="space-evenly">
                                     <Grid item>
-                                        <Button disabled={data.archived}>
+                                        <Button disabled={data.archived} onClick={() => setOpenEdit(true)}>
                                             <Edit />
                                         </Button>
                                     </Grid>
@@ -78,6 +80,7 @@ export default function Card(props) {
                 </div>
             </div>
             <ArchiveCardModal open={openArchive} close={() => setOpenArchive(false)} boardId={props.boardId} listId={props.listId} cardId={data.id} archived={data.archived} setLoading={props.setLoading} />
+            <EditCardModal open={openEdit} close={() => setOpenEdit(false)} boardId={props.boardId} cardData={data} setLoading={props.setLoading} />
         </Grid>
     )
 }
@@ -102,6 +105,7 @@ const useStyles = makeStyles(theme => ({
         maxWidth: '80%',
         backgroundColor: 'lightgray',
         padding: 10,
-        wordWrap: 'break-word'
+        wordWrap: 'break-word',
+        borderRadius: 10
     },
 }))
